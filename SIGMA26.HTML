@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SIGMA26">
+  <title>SIGMA26 - Interactive Action Plan</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="8.png">
+  <link rel="shortcut icon" type="image/x-icon" href="8.png">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ==================== OVERRIDE GOOGLE APPS SCRIPT - SMART ==================== */
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw !important;
+      overflow-x: hidden !important;
+    }
+    
+    .container {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    
+    /* ==================== FORCE MOBILE RENDERING ==================== */
+    html {
+      width: 100%;
+      height: 100%;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    
+    /* ==================== VARIABLES & RESET ==================== */
+    :root {
+      --color-primary: #690000;
+      --color-secondary: #455dff;
+      --color-bg: #fafafa;
+      --color-card-bg: #ffffff;
+      --color-text-dark: #1a1a1a;
+      --color-text-medium: #4a4a4a;
+      --color-text-light: #7a7a7a;
+      --color-border: #e8e8e8;
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* ==================== HEADER ==================== */
+    .header {
+      background: var(--color-primary);
+      color: white;
+      padding: var(--spacing-sm) var(--spacing-md);
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.6s ease-out;
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .logo-img {
+      height: 115px;
+      width: auto;
+      object-fit: contain;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: block;
+    }
+    
+    .sigma-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: white;
+    }
+    
+    .sigma-subtitle {
+      font-size: 0.65rem;
+      font-weight: 300;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: -2px;
+    }
+    
+    /* ==================== CONTAINER ==================== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: var(--spacing-md) var(--spacing-sm) !important;
+      }
+    }
+    
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      text-align: center;
+      padding: var(--spacing-sm) 0;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-text-dark);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--color-text-medium);
+      font-weight: 300;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-top: var(--spacing-sm);
+    }
+    
+    /* ==================== SPONSORS SECTION ==================== */
+    .sponsors-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-xl);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+    
+    .sponsors-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+    }
+    
+    .sponsors-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--spacing-lg);
+      align-items: center;
+      justify-items: center;
+      margin-top: var(--spacing-md);
+    }
+    
+    .sponsor-logo {
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+      object-fit: contain;
+      padding: var(--spacing-md);
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      border: 2px solid var(--color-border);
+      transition: var(--transition);
+    }
+    
+    .sponsor-logo:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+    
+    .sponsors-text {
+      font-size: 0.95rem;
+      color: var(--color-text-medium);
+      margin-top: var(--spacing-md);
+      font-style: italic;
+    }
+    
+    /* ==================== HERO LOGO ==================== */
+    .hero-logo {
+      margin-bottom: 0.2rem;
+      animation: fadeInDown 0.8s ease-out;
+    }
+    
+    .hero-logo-img {
+      max-width: 200px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(105, 0, 0, 0.15));
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* ==================== NAVIGATION TABS ==================== */
+    .nav-tabs {
+      display: flex;
+      gap: var(--spacing-sm);
+      justify-content: center;
+      margin: var(--spacing-xl) 0;
+      flex-wrap: wrap;
+    }
+    
+    .nav-tab {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      color: var(--color-text-medium);
+      font-size: 1rem;
+    }
+    
+    .nav-tab.active {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .nav-tab:hover:not(.active) {
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+    }
+    
+    /* ==================== ACTION GUIDE ==================== */
+    .guide-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .guide-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    
+    .guide-icon {
+      font-size: 2rem;
+    }
+    
+    .guide-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-md);
+    }
+    
+    .step-card {
+      background: var(--color-bg);
+      padding: var(--spacing-md);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--color-secondary);
+      position: relative;
+    }
+    
+    .step-number {
+      position: absolute;
+      top: -12px;
+      left: var(--spacing-sm);
+      background: var(--color-secondary);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    
+    .step-title {
+      font-weight: 600;
+      color: var(--color-text-dark);
+      margin-top: var(--spacing-sm);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .step-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-medium);
+    }
+    
+    /* ==================== TIMELINE ==================== */
+    .timeline {
+      position: relative;
+      padding-left: var(--spacing-xl);
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+    }
+    
+    .timeline-block {
+      margin-bottom: var(--spacing-xl);
+      animation: slideInLeft 0.5s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .timeline-marker {
+      position: absolute;
+      left: 6px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid var(--color-primary);
+      z-index: 1;
+    }
+    
+    .timeline-content {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-md);
+      margin-left: var(--spacing-md);
+    }
+    
+    .time-badge {
+      display: inline-block;
+      background: var(--color-primary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .session-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-text-dark);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .session-type {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .session-type.plenary {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    
+    .session-type.workshop {
+      background: #455dff;
+      color: white;
+    }
+    
+    .session-type.technical {
+      background: #455dff;
+      color: white;
+    }
+    
+    .session-type.break {
+      background: #455dff;
+      color: white;
+    }
+    
+    /* ==================== ACCORDION ==================== */
+    .accordion {
+      margin-top: var(--spacing-md);
+    }
+    
+    .accordion-item {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-sm);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .accordion-item:hover {
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .accordion-header {
+      padding: var(--spacing-md);
+      background: var(--color-bg);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: var(--transition);
+    }
+    
+    .accordion-header:hover {
+      background: #f0f0f0;
+    }
+    
+    .accordion-title {
+      font-weight: 600;
+      color: var(--color-text-dark);
+      flex: 1;
+    }
+    
+    .accordion-icon {
+      font-size: 1.2rem;
+      color: var(--color-primary);
+      transition: transform 0.3s;
+    }
+    
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+    
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .accordion-body {
+      padding: var(--spacing-md);
+      background: white;
+    }
+    
+    /* ==================== PRESENTATION CARDS ==================== */
+    .presentation-grid {
+      display: grid;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-sm);
+    }
+    
+    .presentation-card {
+      background: var(--color-bg);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-md);
+      border-left: 3px solid var(--color-secondary);
+    }
+    
+    .presentation-id {
+      font-weight: 700;
+      color: var(--color-secondary);
+      font-size: 0.85rem;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .presentation-title {
+      font-weight: 600;
+      color: var(--color-text-dark);
+      margin-bottom: var(--spacing-xs);
+      line-height: 1.4;
+    }
+    
+    .presentation-authors {
+      font-size: 0.85rem;
+      color: var(--color-text-medium);
+      font-style: italic;
+    }
+    
+    .chair-info {
+      background: #fef3c7;
+      border-left: 3px solid #f59e0b;
+      padding: var(--spacing-sm);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--spacing-sm);
+      font-size: 0.9rem;
+    }
+    
+    .chair-label {
+      font-weight: 600;
+      color: #92400e;
+    }
+    
+    .room-badge {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-right: var(--spacing-xs);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    /* ==================== PARALLEL SESSIONS ==================== */
+    .parallel-sessions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-md);
+    }
+    
+    .parallel-session {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md);
+      border: 2px solid var(--color-border);
+    }
+    
+    /* ==================== INFO BOX ==================== */
+    .info-box {
+      background: var(--color-secondary);
+      color: white;
+      padding: var(--spacing-md);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-md);
+      font-weight: 500;
+    }
+    
+    /* ==================== UTILITIES ==================== */
+    .hidden {
+      display: none !important;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .mt-xl {
+      margin-top: var(--spacing-xl);
+    }
+    
+    .mb-md {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 768px) {
+      /* Header optimizations */
+      .header {
+        padding: var(--spacing-xs) var(--spacing-sm);
+      }
+      
+      .header-content {
+        gap: var(--spacing-sm);
+      }
+      
+      .logo-section {
+        flex: 1;
+        min-width: 0;
+      }
+      
+      .sigma-title {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+      
+      .sigma-subtitle {
+        font-size: 0.55rem;
+        text-align: center;
+      }
+      
+      .logo-img {
+        height: 80px;
+      }
+      
+      /* Hero optimizations */
+      .hero {
+        padding: var(--spacing-sm) 0;
+      }
+      
+      .hero-logo-img {
+        max-width: 150px;
+      }
+      
+      .hero-title {
+        font-size: 1.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 0.95rem;
+      }
+      
+      .hero-badge {
+        font-size: 0.8rem;
+        padding: 3px 10px;
+      }
+      
+      /* Sponsors section */
+      .sponsors-section {
+        padding: var(--spacing-md);
+        margin-top: var(--spacing-md);
+      }
+      
+      .sponsors-title {
+        font-size: 1.1rem;
+      }
+      
+      .sponsors-container {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: var(--spacing-sm);
+      }
+      
+      .sponsor-logo {
+        max-width: 140px;
+        padding: var(--spacing-sm);
+      }
+      
+      .sponsors-text {
+        font-size: 0.85rem;
+      }
+      
+      /* Navigation tabs */
+      .nav-tabs {
+        gap: var(--spacing-xs);
+        margin: var(--spacing-md) 0;
+      }
+      
+      .nav-tab {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.85rem;
+        flex: 1;
+        min-width: 0;
+      }
+      
+      /* Timeline */
+      .timeline {
+        padding-left: var(--spacing-md);
+      }
+      
+      .timeline-marker {
+        left: 2px;
+      }
+      
+      .timeline-content {
+        padding: var(--spacing-md);
+        margin-left: var(--spacing-sm);
+      }
+      
+      .time-badge {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+      }
+      
+      .session-title {
+        font-size: 1.1rem;
+      }
+      
+      /* Accordion */
+      .accordion-header {
+        padding: var(--spacing-sm);
+      }
+      
+      .accordion-title {
+        font-size: 0.9rem;
+      }
+      
+      /* Presentation cards */
+      .presentation-card {
+        padding: var(--spacing-sm);
+      }
+      
+      .presentation-id {
+        font-size: 0.8rem;
+      }
+      
+      .presentation-title {
+        font-size: 0.95rem;
+      }
+      
+      .presentation-authors {
+        font-size: 0.8rem;
+      }
+      
+      /* Chair info */
+      .chair-info {
+        padding: var(--spacing-sm);
+        font-size: 0.85rem;
+      }
+      
+      /* Parallel sessions */
+      .parallel-sessions {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+      }
+      
+      .parallel-session {
+        padding: var(--spacing-md);
+      }
+      
+      .room-badge {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+      }
+      
+      /* Guide steps */
+      .guide-steps {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+      }
+      
+      .step-card {
+        padding: var(--spacing-sm);
+      }
+      
+      .step-title {
+        font-size: 0.95rem;
+      }
+      
+      .step-desc {
+        font-size: 0.85rem;
+      }
+      
+      /* General */
+      .container {
+        padding: var(--spacing-md) var(--spacing-sm);
+      }
+      
+      .guide-section {
+        padding: var(--spacing-md);
+      }
+      
+      .guide-title {
+        font-size: 1.4rem;
+      }
+      
+      .info-box {
+        padding: var(--spacing-sm);
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Extra small screens (phones < 480px) */
+    @media (max-width: 480px) {
+      .header {
+        padding: var(--spacing-xs) 0.5rem;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+      }
+      
+      .header-content {
+        gap: var(--spacing-xs);
+        flex-direction: column-reverse;
+      }
+      
+      .sigma-title {
+        font-size: 1rem;
+      }
+      
+      .sigma-subtitle {
+        font-size: 0.5rem;
+      }
+      
+      .logo-img {
+        height: 60px;
+      }
+      
+      .hero {
+        padding: var(--spacing-sm) 0.5rem;
+      }
+      
+      .hero-logo-img {
+        max-width: 120px;
+      }
+      
+      .hero-title {
+        font-size: 1.2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 0.85rem;
+      }
+      
+      .sponsors-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xs);
+      }
+      
+      .sponsor-logo {
+        max-width: 110px;
+        padding: 0.25rem;
+      }
+      
+      .sponsors-text {
+        font-size: 0.75rem;
+      }
+      
+      .nav-tabs {
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+      
+      .nav-tab {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.7rem;
+      }
+      
+      .accordion-header {
+        padding: 0.4rem;
+      }
+      
+      .accordion-title {
+        font-size: 0.85rem;
+      }
+      
+      .presentation-title {
+        font-size: 0.85rem;
+      }
+      
+      .presentation-authors {
+        font-size: 0.7rem;
+      }
+      
+      .time-badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+      }
+      
+      .session-title {
+        font-size: 1rem;
+      }
+      
+      .guide-title {
+        font-size: 1.2rem;
+      }
+      
+      .step-title {
+        font-size: 0.85rem;
+      }
+      
+      .step-desc {
+        font-size: 0.75rem;
+      }
+      
+      .container {
+        padding: var(--spacing-md) 0.5rem;
+      }
+      
+      .info-box {
+        padding: 0.4rem;
+        font-size: 0.75rem;
+      }
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      background-color: #f5f5f5;
+      color: #333;
+      padding: var(--spacing-lg) 0;
+      margin-top: var(--spacing-xl);
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+      border-top: 2px solid #ddd;
+      width: 100%;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-lg);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .footer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .footer-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-description {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+      color: #666;
+    }
+
+    .footer-text {
+      font-size: 0.9rem;
+      margin: 0;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links li {
+      margin: 0;
+    }
+
+    .footer-links a {
+      color: var(--color-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .footer-text a {
+      color: var(--color-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-text a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-top: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-copyright {
+      font-size: 0.9rem;
+      margin: 0;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+
+    .footer-credit {
+      font-size: 0.85rem;
+      margin: 0;
+      color: #999;
+      font-style: italic;
+    }
+
+    /* Footer responsive */
+    @media (max-width: 768px) {
+      .footer {
+        padding: var(--spacing-lg) var(--spacing-md);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+      }
+
+      .footer-bottom {
+        padding-top: var(--spacing-md);
+        gap: 0.25rem;
+      }
+
+      .footer-title {
+        font-size: 1.1rem;
+      }
+
+      .footer-description,
+      .footer-text {
+        font-size: 0.85rem;
+      }
+
+      .footer-links a {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer {
+        padding: var(--spacing-md) var(--spacing-sm);
+      }
+
+      .footer-content {
+        gap: var(--spacing-md);
+      }
+
+      .footer-title {
+        font-size: 1rem;
+      }
+
+      .footer-description,
+      .footer-text {
+        font-size: 0.8rem;
+      }
+
+      .footer-links a {
+        font-size: 0.8rem;
+      }
+
+      .footer-copyright {
+        font-size: 0.8rem;
+      }
+
+      .footer-credit {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-content">
+      <div class="logo-section">
+        <div>
+          <div class="sigma-title">SIGMA26</div>
+          <div class="sigma-subtitle">International Seminar on Applied Mechanics</div>
+        </div>
+      </div>
+      <div class="logo-container">
+        <img id="enpoLogo" src="6.png" alt="ENPO Logo" class="logo-img">
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <!-- HERO SECTION -->
+    <div class="hero">
+      <!-- Hero Logo -->
+      <div class="hero-logo">
+        <img id="heroSigmaLogo" src="1.png" alt="SIGMA26 Logo" class="hero-logo-img">
+      </div>
+      
+      <h1 class="hero-title">Interactive Action Plan</h1>
+      <p class="hero-subtitle">Complete guide for SIGMA26 Seminar participants</p>
+      <div class="hero-badge">February 10-11, 2026 | Oran, Algeria</div>
+      
+      <!-- SPONSORS SECTION -->
+      <div class="sponsors-section">
+        <h3 class="sponsors-title">
+          Our Sponsors
+        </h3>
+        <div class="sponsors-container">
+          <div class="sponsor-item">
+            <img id="sponsor1Logo" src="3.png" alt="Sponsor 1 Logo" class="sponsor-logo">
+          </div>
+          <div class="sponsor-item">
+            <img id="sponsor2Logo" src="4.png" alt="Sponsor 2 Logo" class="sponsor-logo">
+          </div>
+          <div class="sponsor-item">
+            <img id="sponsor3Logo" src="5.png" alt="Sponsor 3 Logo" class="sponsor-logo">
+          </div>
+        </div>
+        <p class="sponsors-text">We would like to thank our valued sponsors for their support in making SIGMA26 a successful event.</p>
+      </div>
+    </div>
+
+    <!-- NAVIGATION TABS -->
+    <div class="nav-tabs">
+      <button class="nav-tab" onclick="showTab('guide')"><i class="fas fa-clipboard"></i> Quick Guide</button>
+      <button class="nav-tab active" onclick="showTab('day1')"><i class="fas fa-calendar-alt"></i> Day 1 (Feb 10)</button>
+      <button class="nav-tab" onclick="showTab('day2')"><i class="fas fa-calendar-alt"></i> Day 2 (Feb 11)</button>
+      <button class="nav-tab" onclick="showTab('posters')"><i class="fas fa-image"></i> Posters</button>
+    </div>
+
+    <!-- ACTION GUIDE TAB -->
+    <div id="guideTab" class="tab-content hidden">
+      <div class="guide-section">
+        <h2 class="guide-title">
+          <span class="guide-icon"><i class="fas fa-target"></i></span>
+          Survival Guide for Participants
+        </h2>
+        <p style="color: var(--color-text-medium); margin-bottom: var(--spacing-lg);">
+          Follow these key steps to make the most of your SIGMA26 experience
+        </p>
+        
+        <div class="guide-steps">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-title"><i class="fas fa-clipboard-list"></i> Registration</div>
+            <div class="step-desc">Arrive at 08:00 on February 10. Complete registration at the main entrance. Collect your badge and documentation.</div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-title"><i class="fas fa-microphone"></i> Opening Ceremony</div>
+            <div class="step-desc">Join the opening plenary session at 09:00. Listen to institutional addresses and keynote speakers.</div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-title"><i class="fas fa-mug-hot"></i> Coffee Break & Networking</div>
+            <div class="step-desc">Connect with peers during breaks. View poster presentations in parallel sessions.</div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <div class="step-title"><i class="fas fa-chart-bar"></i> Technical Sessions</div>
+            <div class="step-desc">Attend oral presentations in your field. Sessions run in parallel across multiple rooms. Check schedules carefully.</div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">5</div>
+            <div class="step-title"><i class="fas fa-utensils"></i> Lunch Break</div>
+            <div class="step-desc">Enjoy provided meals from 13:00-14:15. Continue networking with colleagues.</div>
+          </div>
+          
+          <div class="step-card">
+            <div class="step-number">6</div>
+            <div class="step-title"><i class="fas fa-graduation-cap"></i> Closing & Gala</div>
+            <div class="step-desc">Day 1 ends at 18:15. Gala dinner at 20:00. Day 2 ends with distribution of certificates at 16:00, And a dinner at 20:30.</div>
+          </div>
+        </div>
+        
+        <div class="info-box mt-xl">
+          <strong><i class="fas fa-map-pin"></i> Important Info:</strong> Sessions are held in 3 main rooms: Conference Room (Library), Computer Room (ABBES IBN FERNES-GI), and Mediatheque Room. Each presentation is 15 minutes. Be punctual!
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 1 TAB -->
+    <div id="day1Tab" class="tab-content">
+      <div class="timeline">
+        
+        <!-- Registration -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">08:00 - 09:00</span>
+            <h3 class="session-title">Registration</h3>
+            <span class="session-type break">Administrative</span>
+            <p style="color: var(--color-text-medium); margin-top: var(--spacing-sm);">
+              Welcome participants and complete registration formalities at the main entrance.
+            </p>
+          </div>
+        </div>
+
+        <!-- Opening Ceremony -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">09:00 - 09:30</span>
+            <h3 class="session-title">Opening Ceremony</h3>
+            <span class="session-type plenary">Plenary Session</span>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-list"></i> View Details</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul style="list-style-position: inside; color: var(--color-text-medium);">
+                      <li>Quran recitation / National Anthem</li>
+                      <li>Speech by the Director of ENPO MA</li>
+                      <li>Speech by the President of the Seminar</li>
+                      <li>Speech by the President of the Seminar's Scientific Committee</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keynote -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">09:30 - 10:10</span>
+            <h3 class="session-title">Keynote Speaker</h3>
+            <span class="session-type plenary">Plenary Session</span>
+            
+            <div class="chair-info">
+              <span class="chair-label">Chair:</span> Pr. BOUKELI HASSANE F.<br>
+              <span class="chair-label">Co-Chair:</span> BENABDELLAH T.
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-microphone"></i> Keynote Presentation</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="presentation-card">
+                      <div class="presentation-title"><strong>Pr. LAPUERTA M.</strong> (Spain)</div>
+                      <div class="presentation-title">"Renewable fuels: classification and life-cycle assessments"</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agreement Signing -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">10:10 - 10:15</span>
+            <h3 class="session-title">Agreement Signing</h3>
+            <span class="session-type plenary">Official Event</span>
+            <p style="color: var(--color-text-medium); margin-top: var(--spacing-sm);">
+              <strong>ENPO-UCLM Agreement (Spain)</strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- Coffee Break & Posters -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">10:15 - 10:45</span>
+            <h3 class="session-title">Coffee Break + Parallel Poster Sessions</h3>
+            <span class="session-type break">Break / Networking</span>
+            
+            <div class="chair-info">
+              <span class="chair-label">Chair:</span> Dr MOKHEFI A.<br>
+              <span class="chair-label">Co-Chairs:</span> Dr. ROSTANE B., Dr. BENAYAD Z., Dr. NAHILA A., Dr. KHATER M. A., Dr. NEMCHI
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-images"></i> View Poster Sessions</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p><strong>Poster IDs:</strong> ID-121, ID-156, ID-159, ID-163, ID-203, ID-230, ID-234, ID-251, ID-252, ID-255</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Morning Technical Sessions -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">10:45 - 12:45</span>
+            <h3 class="session-title">Parallel Technical Sessions (Morning)</h3>
+            <span class="session-type technical">Oral Presentations</span>
+            
+            <div class="parallel-sessions">
+              <!-- Room 1 -->
+              <div class="parallel-session">
+                <div class="room-badge">Conference Room (Library)</div>
+                <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Applied Thermodynamics & Heat Transfer / Renewable Energy</h4>
+                
+                <div class="chair-info">
+                  <span class="chair-label">Chair:</span> Pr. ADOUANE B.<br>
+                  <span class="chair-label">Co-Chair:</span> Pr. BENCHERIF M.
+                </div>
+                
+                <div class="accordion">
+                  <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                      <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (8)</div>
+                      <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                      <div class="accordion-body">
+                        <div class="presentation-grid">
+                          <div class="presentation-card">
+                            <div class="presentation-id">10:45 – 11:00 | ID-115</div>
+                            <div class="presentation-title">Numerical Study of Fluid-Structure Interaction in Natural Convection within a Circular Cavity</div>
+                            <div class="presentation-authors">Atika BENCHERIF, Hanaa DERRAZ, Afafe MEDJEDED, Mohamed BOUZIT</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">11:00 – 11:15 | ID-158</div>
+                            <div class="presentation-title">Magnetohydrodynamic Natural Convection Investigation Of Fe3O4 Nanofluid Ferrofluid Inside a Square Cavity Containing a Hot Tiled Shape</div>
+                            <div class="presentation-authors">Said AZZI, Amina BENABDERRAHMANE</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">11:15 – 11:30 | ID-140</div>
+                            <div class="presentation-title">Evaluation of Energy Savings and Economic Feasibility of a Domestic Solar Water Heater in Oran Using TRNSYS</div>
+                            <div class="presentation-authors">Hanane BERREBAH, Touhami BAKI, Sarah AYAD</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">11:30 – 11:45 | ID-205</div>
+                            <div class="presentation-title">Exergo-economic analyses of a single-effect absorption chiller</div>
+                            <div class="presentation-authors">ABDESSELAM Bilal, ALIANE Abdennour, BENRAMDANE Mohammed</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">11:45 – 12:00 | ID-243</div>
+                            <div class="presentation-title">Targeted Optimization of the SrCu2O2 Hole-Transport Layer for Lead-Free CH3NH3GeI3 Perovskite Solar Cells: A Numerical Study</div>
+                            <div class="presentation-authors">Amel BELGACEM, Mousaab BELARBI, Leila NACERI</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">12:00 – 12:15 | ID-245</div>
+                            <div class="presentation-title">Numerical simulation of forced convection nanofluid flow over a BFS including three fins with different orientation angles</div>
+                            <div class="presentation-authors">Karim AMRANI, Cherif BELHOUT, Abdelkader ARIS, Mohamed BOUZIT</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">12:15 – 12:30 | ID-134</div>
+                            <div class="presentation-title">Parametric Study and Thermal Optimization of Pin Fin Heat Sinks by Using Rings and Perforation Technique</div>
+                            <div class="presentation-authors">ALEM Karima, SAHEL Djamel, BOUDAOUD Warda, ABDOUNE Yamina</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">12:30 – 12:45 | ID-170</div>
+                            <div class="presentation-title">Analysis and Thermodynamic Optimization of a Combined Refrigeration-Organic Rankine Cycle (ORC)</div>
+                            <div class="presentation-authors">TALEB Mohamed Anis, FERGANI Zineb, TRIKI Zakaria</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Room 2 -->
+              <div class="parallel-session">
+                <div class="room-badge">Computer Room (ABBES IBN FERNES-GI)</div>
+                <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Mechanical Behavior of Materials & Damage</h4>
+                
+                <div class="chair-info">
+                  <span class="chair-label">Chair:</span> Pr. SAIM R.<br>
+                  <span class="chair-label">Co-Chair:</span> Dr. IZIDI H.
+                </div>
+                
+                <div class="accordion">
+                  <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                      <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (8)</div>
+                      <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                      <div class="accordion-body">
+                        <div class="presentation-grid">
+                          <div class="presentation-card">
+                            <div class="presentation-id">10:45 – 11:00 | ID-258</div>
+                            <div class="presentation-title">Analytical model for the vibration behavior of coated functionally graded nanobeams via a high order shear deformation theory</div>
+                            <div class="presentation-authors">Ahmed DRAI, Benaoumeur AOUR, Ahmed Amine DAIKH, Mohamed GUERROUDJ</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">11:00 – 11:15 | ID-236</div>
+                            <div class="presentation-title">Mechanical and Thermodynamic Properties of Half-metallic material Containing Tantalum</div>
+                            <div class="presentation-authors">Issam ASFOUR</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">11:15 – 11:30 | ID-201</div>
+                            <div class="presentation-title">Finite Element Evaluation of Floor Diaphragm Flexibility in Rectangular Single-Story Buildings</div>
+                            <div class="presentation-authors">BAHAR Sadek, ACHOUR Aida, AMAMRA Laid, ZLAMAT Yassine</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">11:30 – 11:45 | ID-240</div>
+                            <div class="presentation-title">Artificial Intelligence Predicted Maximum Temperature in Friction Stir Welding of AA3003</div>
+                            <div class="presentation-authors">Amina BELARIBI, Ismail CHEKALIL, Abdelkader MILOUDI, Réda ADJOUDJ</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">11:45 – 12:00 | ID-150</div>
+                            <div class="presentation-title">Effect of Geometrical Modifications on the J-Integral of a Metallic Plate Repaired with a Composite Patch: A Finite Element Study</div>
+                            <div class="presentation-authors">AMINALLAH Salma, MADANI Kouider</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">12:00 – 12:15 | ID-220</div>
+                            <div class="presentation-title">Analysis of patch repair performance under dynamic loading</div>
+                            <div class="presentation-authors">LIAMANI Samira</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">12:15 – 12:30 | ID-219</div>
+                            <div class="presentation-title">Transition Metal Carbides and Nitrides as Lead Alternatives for Gamma Radiation Shielding: A Comparative Study</div>
+                            <div class="presentation-authors">Amina HADJAL, Asmaa SAIM</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">12:30 – 12:45 | ID-184</div>
+                            <div class="presentation-title">Study of the Bending Behavior of Sandwich Panels with Cork Core</div>
+                            <div class="presentation-authors">Fadhila MATOUK</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: #fef3c7; padding: var(--spacing-md); border-radius: var(--radius-md); margin-top: var(--spacing-md);">
+              <strong><i class="fas fa-clock"></i> Session ends at 12:45 with closing remarks</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lunch -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">13:00 - 14:15</span>
+            <h3 class="session-title">Lunch Break</h3>
+            <span class="session-type break">Meal / Networking</span>
+          </div>
+        </div>
+
+        <!-- Afternoon Keynote -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">14:15 - 15:00</span>
+            <h3 class="session-title">Afternoon Keynote Speaker</h3>
+            <span class="session-type plenary">Plenary Session</span>
+            
+            <div class="chair-info">
+              <span class="chair-label">Chair:</span> Pr. HIRECHE O.<br>
+              <span class="chair-label">Co-Chair:</span> Pr. SAIM R.
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-microphone"></i> Keynote Presentation</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="presentation-card">
+                      <div class="presentation-title"><strong>Dr. AYAD B.</strong> (Algeria)</div>
+                      <div class="presentation-title">"AUVs and Marine Gliders: State of the Art and Optimization"</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Afternoon Technical Sessions -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">15:00 - 18:15</span>
+            <h3 class="session-title">Parallel Technical Sessions (Afternoon)</h3>
+            <span class="session-type technical">Oral Presentations</span>
+            
+            <div class="parallel-sessions">
+              <!-- Room 1 Afternoon -->
+              <div class="parallel-session">
+                <div class="room-badge">Conference Room (Library)</div>
+                <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Applied Thermodynamics & Heat Transfer / Renewable Energy</h4>
+                
+                <div class="chair-info">
+                  <span class="chair-label">Chair:</span> Pr. KORTI N. A.<br>
+                  <span class="chair-label">Co-Chair:</span> Pr. LAOUEDJ S.
+                </div>
+                
+                <div class="accordion">
+                  <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                      <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (8)</div>
+                      <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                      <div class="accordion-body">
+                        <div class="presentation-grid">
+                          <div class="presentation-card">
+                            <div class="presentation-id">15:00 – 15:45 | ID-207</div>
+                            <div class="presentation-title">Performance Evaluation of a Trigeneration System Based on a Proton Exchange Membrane Fuel Cell</div>
+                            <div class="presentation-authors">Hamid ABDI, Omar KETFI, Abdellah EL-BEY, Abderaouf DJEGHDJOUGH</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">15:45 – 16:00 | ID-118</div>
+                            <div class="presentation-title">Experimental and Numerical Study of the Thermal Behavior of a Workroom in a Desert Region</div>
+                            <div class="presentation-authors">Abdellatif OUDRANE, Benaoumeur AOUR</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:00 – 16:15 | ID-223</div>
+                            <div class="presentation-title">Assessment of ionizing radiation-induced degradation of GaAs solar cells for satellite applications</div>
+                            <div class="presentation-authors">Fatima Zohra BOUCHAREB, Youcef BENTOUTOU</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:15 – 16:30 | ID-114</div>
+                            <div class="presentation-title">Numerical Simulation of Buoyancy-Driven Flow in Bingham Fluid with a Flexible Thermal Fin</div>
+                            <div class="presentation-authors">DERRAZ Hanaa, BENCHERIF Atika, MEDJEDED Afafe, BOUZIT Mohamed</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:30 – 16:45 | ID-260</div>
+                            <div class="presentation-title">Design and Efficiency of a Submerged Heat Exchanger for Industrial Wool Washing using Solar Energy</div>
+                            <div class="presentation-authors">HAZMOUNE Messaoud, LAISSAOUI Mohammed, AOUR Benaoumeur, Boudlal Amina</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:45 – 17:00 | ID-262</div>
+                            <div class="presentation-title">Study of the Performance of an Abandoned Oil Well Converted to a Geothermal Exchanger for Green Energy Production</div>
+                            <div class="presentation-authors">Yassine TAIBI, Benaoumeur AOUR, Kaddour SADEK</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">17:30 – 17:45 | ID-227</div>
+                            <div class="presentation-title">Unveiling the magneto-electronic and thermos-elastic properties of orthorhombic RbNpO3 Perovskite: A first-principles study</div>
+                            <div class="presentation-authors">RABIA Rahmani, Atika GUENDOUZ, Abdelkader NABATTI Ech-Chergui, Kouider DRISS-KHODJA, Bouhalouane AMRANI</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">17:45 – 18:00 | ID-231</div>
+                            <div class="presentation-title">Calculation the Gas Torque of an Internal Combustion Engine from the Measurement of the Instantaneous Rotational Speed of the Crankshaft</div>
+                            <div class="presentation-authors">SEDDAK Mohamed, LAKHDARI Assia Amina</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Room 2 Afternoon -->
+              <div class="parallel-session">
+                <div class="room-badge">Computer Room (ABBES IBN FERNES-GI)</div>
+                <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Mechanical Behavior of Materials & Damage</h4>
+                
+                <div class="chair-info">
+                  <span class="chair-label">Chair:</span> Pr. HIRECHE O.<br>
+                  <span class="chair-label">Co-Chair:</span> Pr. BENRAMDANNE M.
+                </div>
+                
+                <div class="accordion">
+                  <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                      <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (8)</div>
+                      <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                      <div class="accordion-body">
+                        <div class="presentation-grid">
+                          <div class="presentation-card">
+                            <div class="presentation-id">15:00 – 15:45 | ID-119</div>
+                            <div class="presentation-title">High Cycle Fatigue Crack Growth Analyses of High-Strength Steel</div>
+                            <div class="presentation-authors">Abdelhak NEHILA, Sadek GOUASMI, Abdelmalek REGAD, Mohamed IKHLEF CHAOUCH, Wei LI</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">15:45 – 16:00 | ID-132</div>
+                            <div class="presentation-title">Welding current effects on tensile shear strength and nugget diameter of RSW with dissimilar materials (6062-T6/low-alloy carbon steel)</div>
+                            <div class="presentation-authors">Abdelkader BENYOUCEF, Mustapha BENACHOUR, Nadjia BENACHOUR, F.Z. SERIARI</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:00 – 16:15 | ID-257</div>
+                            <div class="presentation-title">Machine Learning Approaches for Predicting Hygrothermal-Induced Adhesive Damage in Structural Steel Joints</div>
+                            <div class="presentation-authors">Dahou Boumaiza, Kaddour Sadek, Benaoumeur Aour</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:15 – 16:30 | ID-256</div>
+                            <div class="presentation-title">Analysis of Failure in Structures Repaired with Composite Patches of Various Geometries under Biaxial Loading</div>
+                            <div class="presentation-authors">Fayçal BENALI, Benaoumeur AOUR, Habib HOUARI, Ghlem TARFAIA</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:30 – 16:45 | ID-263</div>
+                            <div class="presentation-title">Numerical Investigation of Wall Thickness Effects on a 60-Liter LPG Cylindrical Tank</div>
+                            <div class="presentation-authors">Ghlem TARFAIA, Benaoumeur AOUR, Fayçal BENALIA, Habib HOUARI</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:45 – 17:00 | ID-210</div>
+                            <div class="presentation-title">Nanostructured Porosity Engineering: Stress Dynamics Influenced by Pore Size at the Ag–Al₂O₃ bimaterials Interface</div>
+                            <div class="presentation-authors">Lamisse TAYEBOUN, Hamida FEKIRINI, Souad SELLAM, Farida BOUAFIA, Halima NAOUM</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">17:30 – 17:45 | ID-261</div>
+                            <div class="presentation-title">NUMERICAL SIMULATION AND EXPERIMENTAL STUDY OF POLYAMIDE BEHAVIOR DURING THE ECAE PROCESS</div>
+                            <div class="presentation-authors">HOUARI Habib, AOUR Benaoumeur, BENALIA Faycl, TARFAIA Ghalem</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">17:45 – 18:00 | ID-212</div>
+                            <div class="presentation-title">Experimental Evaluation of Physical and Mechanical Performance of Luffa for Composite Material Applications</div>
+                            <div class="presentation-authors">AMRANE Aboubakr, MATOUK Fadhila, Houaria Errouane</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Room 3 Afternoon -->
+              <div class="parallel-session">
+                <div class="room-badge">Mediatheque Room (Library)</div>
+                <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Applied Biomechanics & Biomaterials / Industrial Maintenance</h4>
+                
+                <div class="chair-info">
+                  <span class="chair-label">Chair:</span> Pr. AOUR B.<br>
+                  <span class="chair-label">Co-Chair:</span> Dr. BENYAMINA M.
+                </div>
+                
+                <div class="accordion">
+                  <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                      <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (5)</div>
+                      <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                      <div class="accordion-body">
+                        <div class="presentation-grid">
+                          <div class="presentation-card">
+                            <div class="presentation-id">15:00 – 15:45 | ID-214</div>
+                            <div class="presentation-title">Comparative analysis and finite element simulation of a bonded assembly (SLJ)</div>
+                            <div class="presentation-authors">BOUAKKAZ Ahmed Ouadah, BOUZID Mohamed Amine, BESSEGHIER Hadj, KHLEDJ Abdelwahab, DJABRIA Miloud, GHEZALI Mohamed Islem</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">15:45 – 16:00 | ID-131</div>
+                            <div class="presentation-title">Green Fabrication of a Ferrihydrite–Diatomite Hybrid Material for Environmental Photocatalytic Application</div>
+                            <div class="presentation-authors">REZIG Walid</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:00 – 16:15 | ID-225</div>
+                            <div class="presentation-title">Integrating Ti3AlC2 and Ti2AlC as Nano-materials for PTC Heat Transfer Fluid</div>
+                            <div class="presentation-authors">KETFI Omar, ABDI Hamid, ACHOURI Abdelhak</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:15 – 16:30 | ID-186</div>
+                            <div class="presentation-title">Hybrid ANN-EMD Framework for Early Detection of Rotating Machine Faults</div>
+                            <div class="presentation-authors">KESSAI Lamia, ATMANI Youcef, MALKI Maamar</div>
+                          </div>
+                          
+                          <div class="presentation-card">
+                            <div class="presentation-id">16:30 – 16:45 | ID-259</div>
+                            <div class="presentation-title">Effect of Daily Movements on Primary Stability of Total Hip Prosthesis using Finite Element Method</div>
+                            <div class="presentation-authors">Habib HAMANI, Benaoumeur AOUR</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: #455dff; color: white; padding: var(--spacing-md); border-radius: var(--radius-md); margin-top: var(--spacing-md);">
+              <strong><i class="fas fa-mug-hot"></i> Coffee Break: 17:00 - 17:30</strong><br>
+              <strong><i class="fas fa-clock"></i> Session ends at 18:15 with closing remarks</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gala Dinner -->
+        <div class="timeline-block">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="time-badge">19:00 - 20:00</span>
+            <h3 class="session-title">Departure to Hotel & Free Time</h3>
+            <span class="session-type break">Transport</span>
+            
+            <div style="margin-top: var(--spacing-md);">
+              <span class="time-badge">20:00</span>
+              <h3 class="session-title" style="margin-top: var(--spacing-sm);">Gala Dinner</h3>
+              <span class="session-type plenary">Social Event</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DAY 2 TAB - WEDNESDAY 11th FEBRUARY 2026 -->
+<div id="day2Tab" class="tab-content hidden">
+  <div class="timeline">
+    
+    <!-- Opening Plenary Session -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">09:00 - 10:00</span>
+        <h3 class="session-title">Opening Plenary Session</h3>
+        <span class="session-type plenary">Keynote</span>
+        
+        <div class="chair-info">
+          <span class="chair-label">Session Chair:</span> Pr. LAPUERTA M.<br>
+          <span class="chair-label">Co-Chair:</span> Pr ARIS A.
+        </div>
+        
+        <div class="presentation-grid">
+          <div class="presentation-card">
+            <div class="presentation-id">Keynote Speaker</div>
+            <div class="presentation-title">How Could Biogas Contribute to the Energy Mix in Algeria: Towards a Smooth and Sustainable Energy Transition</div>
+            <div class="presentation-authors">Prof. ADOUANE B. (Algeria)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agreement Signing -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">10:00 - 10:05</span>
+        <h3 class="session-title">Agreement Signing</h3>
+        <span class="session-type plenary">Ceremony</span>
+        
+        <div style="background: var(--color-bg); padding: var(--spacing-md); border-radius: var(--radius-sm); margin-top: var(--spacing-sm);">
+          <strong><i class="fas fa-handshake"></i> ENPO MA - Univ Batna 1</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coffee Break -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">10:05 - 10:30</span>
+        <h3 class="session-title">Coffee Break</h3>
+        <span class="session-type break">Networking</span>
+      </div>
+    </div>
+
+    <!-- Morning Parallel Sessions -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">10:30 - 13:00</span>
+        <h3 class="session-title">Parallel Technical Sessions (Morning)</h3>
+        <span class="session-type technical">Oral Presentations</span>
+        
+        <div class="parallel-sessions">
+          <!-- Room 1 Morning -->
+          <div class="parallel-session">
+            <div class="room-badge">Conference Room (Library)</div>
+            <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Applied Thermodynamics and Heat Transfer / Renewable Energy Sources and Technology</h4>
+            
+            <div class="chair-info">
+              <span class="chair-label">Session Chair:</span> Pr. LAPUERTA M.<br>
+              <span class="chair-label">Co-Chair:</span> Dr. BENMANSOUR A.
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (10)</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="presentation-grid">
+                      <div class="presentation-card">
+                        <div class="presentation-id">10:30 - 10:45 | ID-145</div>
+                        <div class="presentation-title">Optimized Process for the Production and Characterization of Biodiesel from Vegetable Oils</div>
+                        <div class="presentation-authors">HAGANI Bouchra Nor El Houda, BOUSBAA Hamza, BENCHERIF Mohamed</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">10:45 - 11:00 | ID-199</div>
+                        <div class="presentation-title">Techno_Economic Comparison of Silicon Photovoltaic Cell Metallization via Silver Paste Screen Printing and Electroplated Aluminum Deposition</div>
+                        <div class="presentation-authors">Asmaa Bouyelfane, Mohammed Benramdane</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:00 - 11:15 | ID-144</div>
+                        <div class="presentation-title">Natural Convection Coupled with Thermal Radiation Heat Transfer of Carreau Fluid</div>
+                        <div class="presentation-authors">Mohamed ABDI Ahmed BEKHADDA , and Benaissa BOUBABOURI</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:15 - 11:30 | ID-185</div>
+                        <div class="presentation-title">A numerical investigation of injection timing in diesel engine fueled with Methyl Oleate biodiesel from Wild Olive Oil</div>
+                        <div class="presentation-authors">BOUIGHI Habib, BENGHERBIA Nardjes, KADDOU Moustafa and DJABALLAH Houssam Eddine</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:30 - 11:45 | ID-157</div>
+                        <div class="presentation-title">Contribution to the Numerical Study of the Thermal Performance of a Nanofluid-Based Hybrid Photovoltaic/Thermal (PVT) Module</div>
+                        <div class="presentation-authors">Abderrahim Mokhefi, Sara Youcefi, Djamila Derbal, Amina Nemchi</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:45 - 12:00 | ID-146</div>
+                        <div class="presentation-title">Natural Convection Heat Transfer in a Concentric Circular Annulus</div>
+                        <div class="presentation-authors">Mohamed ABDI , Benaissa BOUBABOURI , and Ahmed BEKHADDA</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">12:00 - 12:15 | ID-175</div>
+                        <div class="presentation-title">TRNSYS Simulation of Hot Water Storage Tanks with Internal and External Heat Exchangers: Thermal Performance Comparison</div>
+                        <div class="presentation-authors">Ouiza Ait Abderrahim, Aris Abdelkader, Ahmed Guessab</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">12:15 - 12:30 | ID-196</div>
+                        <div class="presentation-title">Hydrogen blended ammonia fuel combustion and NOx emissions in a micro gas turbine</div>
+                        <div class="presentation-authors">Khadidja SAFER, Fouzi TABET, Ahmed OUADHA, Ali Abdessamad BENSAAD, Abdellah BENARIBA</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">12:30 - 12:45 | ID-127</div>
+                        <div class="presentation-title">3D Numerical Simulation of Heat Transfer and Thermo-hydraulic Performance in Solar Air Heaters with Fixed and Rotating Circular Fins</div>
+                        <div class="presentation-authors">Assia ARAB, Khaled ALIANE</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">12:45 - 13:00 | ID-215</div>
+                        <div class="presentation-title">CFD study of heat dissipation rates in heat sink fitted with hemispherical pin fins</div>
+                        <div class="presentation-authors">Djamel SAHEL</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 2 Morning -->
+          <div class="parallel-session">
+            <div class="room-badge">Computer Room (ABBES IBN FERNES-GI)</div>
+            <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Mechanical behavior of materials and damage</h4>
+            
+            <div class="chair-info">
+              <span class="chair-label">Session Chair:</span> Pr. BENCHERIF M.<br>
+              <span class="chair-label">Co-Chair:</span> Dr. BENZAAMA A.
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (10)</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="presentation-grid">
+                      <div class="presentation-card">
+                        <div class="presentation-id">10:30 - 10:45 | ID-149</div>
+                        <div class="presentation-title">Comparative Analysis of the Influence of Internal and External Patches on Stress Distribution in Glass/Epoxy Composite Plates</div>
+                        <div class="presentation-authors">AMINALLAH Salma, MADANI Kaouider</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">10:45 - 11:00 | ID-139</div>
+                        <div class="presentation-title">Static analysis of porous functionally graded sandwich plate</div>
+                        <div class="presentation-authors">Kaima BOUSMAHA, Sid Ahmed BLALIA, Sidi Mohammed CHORFI</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:00 - 11:15 | ID-125</div>
+                        <div class="presentation-title">Fatigue crack growth in double fillet weld and effects of geometrical parameters of solder joint</div>
+                        <div class="presentation-authors">Nadjia BENACHOUR, Mustapha BENACHOUR and Fatima Zohra SERIARI</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:15 - 11:30 | ID-224</div>
+                        <div class="presentation-title">Effect of temperature on the toughness of bilayer ABS/ 15%PMMA sheets</div>
+                        <div class="presentation-authors">Abdelwahab KHLEDJ, Mohamed HADJ MILOUD, Mohammed MENDAS, Adel HADJ AMAR, Ahmed Ouadah BOUAKKEZ, Ibrahim ZIDANE, Fahima AIT MOUSSA</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:30 - 11:45 | ID-173</div>
+                        <div class="presentation-title">Mechanical Behavior and Damage Characterization of Flax/Epoxy Composite laminates Using Acoustic Emission</div>
+                        <div class="presentation-authors">Fatiha Batouche</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:45 - 12:00 | ID-136</div>
+                        <div class="presentation-title">Influence Hygroscopic Absorption on the Resillience of Epoxy Matrix Composite Reinforced with Ceramic Particles</div>
+                        <div class="presentation-authors">BOUDIAF Mohamed Daia Dine, HAROUCHE Mohamed Karim, BENHAMOUDA Seifeddine, DJEMAOUN Younes, HEMMOUCHE Larbi</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">12:00 - 12:15 | ID-195</div>
+                        <div class="presentation-title">Comparative Analysis of Artificial and Natural Heating Methods for Composite Material Fabrication</div>
+                        <div class="presentation-authors">Madjid BELABBACI, Ali HOUARI, Abdeldjebbar TOUNSI, Zakaria IMINE</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">12:15 - 12:30 | ID-147</div>
+                        <div class="presentation-title">Numerical Analysis of Core Plug Replacement Properties on Flexural Performances of Repaired Honeycomb Sandwich Panels</div>
+                        <div class="presentation-authors">Younes DJEMAOUNE, Abou Bakr MEDJAHED, Seif Eddine BENHAMMOUDA, Mohamed Daia dine BOUDIAF</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">12:30 - 12:45 | ID-152</div>
+                        <div class="presentation-title">Improvement of Cracked Pipeline Efficiency</div>
+                        <div class="presentation-authors">Amina Ismahene Fezazi, Mohammed Baghdadi, Belaïd Mechab, Boualem Serier</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">12:45 - 13:00 | ID-188</div>
+                        <div class="presentation-title">A Comparative Study of Residual Stress Fields in Laser Shock Peened (LSP) AA2024-T351 Discs and Square Plates with Uniform Thickness</div>
+                        <div class="presentation-authors">NAOUM Halima, FEKIRINI Hamida, LIAMANI Samira, ZOUAMBI Leila, KHODJA Malika</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 3 Morning -->
+          <div class="parallel-session">
+            <div class="room-badge">Mediatheque Room (Library)</div>
+            <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Applied Thermodynamics and Heat Transfer / Renewable Energy Sources and Technology</h4>
+            
+            <div class="chair-info">
+              <span class="chair-label">Session Chair:</span> Pr. BENZAAMA H.<br>
+              <span class="chair-label">Co-Chair:</span> Pr. ALIANE K.
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (5)</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="presentation-grid">
+                      <div class="presentation-card">
+                        <div class="presentation-id">10:30 - 10:45 | ID-241</div>
+                        <div class="presentation-title">Simulation of blood flow inside a diseased aorta</div>
+                        <div class="presentation-authors">BOUCHARA Lydia, AMATOUSSE Nawel , MEKHFI Makhlouf</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">10:45 - 11:00 | ID-160</div>
+                        <div class="presentation-title">Design of a Funnel-Based Terminal Sliding Mode Controller Using a Robust Observer for Vertical Motion of Autonomous Underwater Vehicles</div>
+                        <div class="presentation-authors">Yasmine DERKAOUI, Bachir DAAOU</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:00 - 11:15 | ID-174</div>
+                        <div class="presentation-title">Design of a Funnel Integrated Terminal Sliding Mode Control Scheme for AUV Depth Tracking</div>
+                        <div class="presentation-authors">Aicha DJELLOULI , Bachir DAAOU</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:15 - 11:30 | ID-181</div>
+                        <div class="presentation-title">Review Using XFEM method to study fractures mechanics behavior of bone</div>
+                        <div class="presentation-authors">HAMADOUCHE Fella</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">11:30 - 11:45 | ID-217</div>
+                        <div class="presentation-title">Contribution to the Characterization of Carbon Fiber Reinforced Polymer (CFRP) Using High-Frequency Eddy Current EddyCus-MPECS Profiling Device</div>
+                        <div class="presentation-authors">Amirouche HAROUZ, Mohammed El Hadi LATRECHE, Henning HEUER, Fatima BARRARAT</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div style="background: var(--color-bg); padding: var(--spacing-md); border-radius: var(--radius-md); margin-top: var(--spacing-md);">
+          <strong><i class="fas fa-clock"></i> Closing remarks at 13:00</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lunch Break -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">13:00 - 14:00</span>
+        <h3 class="session-title">Lunch</h3>
+        <span class="session-type break">Networking</span>
+      </div>
+    </div>
+
+    <!-- Afternoon Parallel Sessions -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">14:00 - 15:45</span>
+        <h3 class="session-title">Parallel Technical Sessions (Afternoon)</h3>
+        <span class="session-type technical">Oral Presentations</span>
+        
+        <div class="parallel-sessions">
+          <!-- Room 1 Afternoon -->
+          <div class="parallel-session">
+            <div class="room-badge">Conference Room (Library)</div>
+            <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Applied Thermodynamics and Heat Transfer / Renewable Energy Sources and Technology</h4>
+            
+            <div class="chair-info">
+              <span class="chair-label">Session Chair:</span> Dr. GUESSAB A<br>
+              <span class="chair-label">Co-Chair:</span> Dr. IZIDI L.
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (6)</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="presentation-grid">
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:00 - 14:15 | ID-178</div>
+                        <div class="presentation-title">Performance Evaluation of a Single-Effect Solar Absorption Refrigeration System with H2O/LiBr and NH3/H2O Pairs</div>
+                        <div class="presentation-authors">Mohammed El-Amine CHIKH, Mohammed BENRAMDANE, Abdennour ALIANE , Omar Farouk BENMOSTEFA, Noureddine EMBAREK and Adenane GHRICI</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:15 - 14:30 | ID-239</div>
+                        <div class="presentation-title">2D Numerical Analysis of Turbulent Natural Gas Combustion in a Cylindrical Chamber</div>
+                        <div class="presentation-authors">DJOUZA Walid</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:30 - 14:45 | ID-168</div>
+                        <div class="presentation-title">Optimal Power Flow using Artificial Bee Colony Optimization</div>
+                        <div class="presentation-authors">HASSANI Naima; YOUNES Mimoun</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:45 - 15:00 | ID-148</div>
+                        <div class="presentation-title">Transient Numerical Analysis of Thermal and Dynamic Behavior during Rapid Filling of Type III-110 L Hydrogen Tanks</div>
+                        <div class="presentation-authors">BOUNOUAR Mokhtari, GUESSAB Ahmed, AIT AMRANE Ouardia, ARIS Abdelkader</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">15:00 - 15:15 | ID-154</div>
+                        <div class="presentation-title">Nondestructive testing based inverse problem approach for electrical conductivity identification in carbon fiber composites</div>
+                        <div class="presentation-authors">Fatima BARRARAT, Amirouche HAROUZ, Samir BENSAID, Bachir HELIFA, and Ibn Khakdoun LEFKAIER</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">15:15 - 15:30 | ID-187</div>
+                        <div class="presentation-title">Investigation on convective heat transfer of nanofluid al2o3 /water in heat exchanger</div>
+                        <div class="presentation-authors">SAFA Abdelkader</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 2 Afternoon -->
+          <div class="parallel-session">
+            <div class="room-badge">Computer Room (ABBES IBN FERNES-GI)</div>
+            <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Mechanical behavior of materials and damage</h4>
+            
+            <div class="chair-info">
+              <span class="chair-label">Session Chair:</span> Dr. GUELLIL H.<br>
+              <span class="chair-label">Co-Chair:</span> Dr. MOKHEFI A.
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (7)</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="presentation-grid">
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:00 - 14:15 | ID-216</div>
+                        <div class="presentation-title">Fretting Behavior of Ti-6Al-4V</div>
+                        <div class="presentation-authors">Abdelhamid MAZOUZI, Mohamed CHEIKH, Hamdi LAOUICI</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:15 - 14:30 | ID-126</div>
+                        <div class="presentation-title">Arrangements of RSW points and welding current effects on mechanical behavior of 304 L Steel</div>
+                        <div class="presentation-authors">Mustapha BENACHOUR, Nadjia BENACHOUR, Fethi Aissaoui, F.Z. SERIARI and AEK BENYOUCEF</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:30 - 14:45 | ID-208</div>
+                        <div class="presentation-title">Interlaminar shear resistance of hybrid fiber-metal laminates (HFMLs) reinforced with B4C nanoparticles under hygrothermal aging</div>
+                        <div class="presentation-authors">Medjahed Abou Bakr, Sayad Yaaqob, Hariz Salah Eddine, CHERRADI Ferras and DJEMAOUNE Younes</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:45 - 15:00 | ID-137</div>
+                        <div class="presentation-title">Influence of Thermal Loads and Mixed Boundary Conditions on Dynamic Behavior of Graphene-Reinforced Nanocomposite Beams</div>
+                        <div class="presentation-authors">GUENIFED Abdelhalim Farouk, BENSAID Ismail, SAIMI Ahmed</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">15:00 - 15:15 | ID-222</div>
+                        <div class="presentation-title">Study of Glass Transition Temperature of Bitumen by Molecular Approach</div>
+                        <div class="presentation-authors">ROUIDI Khadidja, TROUZINE Habib, ASROUN Aissa</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">15:15 - 15:30 | ID-161</div>
+                        <div class="presentation-title">Assessment of Structural Failure in Pressurized Steel Elbows Subjected to In-Plane Bending via XFEM</div>
+                        <div class="presentation-authors">Chaaben Arroussi , Mohamed Amine Khater,Ismail Chekalil, Bassam Gamal Nasser Muthanna</div>
+                      </div>
+                      <div class="presentation-card">
+                        <div class="presentation-id">15:30 - 15:45 | ID-182</div>
+                        <div class="presentation-title">Numerical Model for Cost Analysis and Probability of Mixed Mode Fatigue Crack Propagation in Repaired Aluminum Plate</div>
+                        <div class="presentation-authors">DEGHOUL Nadjia, ERROUANE L, SEREIR.Z</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 3 Afternoon -->
+          <div class="parallel-session">
+            <div class="room-badge">Mediatheque Room (Library)</div>
+            <h4 style="font-weight: 700; margin: var(--spacing-sm) 0;">Applied Thermodynamics and Heat Transfer / Renewable Energy Sources and Technology</h4>
+            
+            <div class="chair-info">
+              <span class="chair-label">Session Chair:</span> Pr. BENABDELLAH T.<br>
+              <span class="chair-label">Co-Chair:</span> Dr. ROSTANE B.
+            </div>
+            
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title"><i class="fas fa-file-alt"></i> View All Presentations (5)</div>
+                  <div class="accordion-icon">▼</div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="presentation-grid">
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:00 - 14:15 | ID-206</div>
+                        <div class="presentation-title">Parametric Study of Buckling of a FG-CNT Nano-composite Beam</div>
+                        <div class="presentation-authors">ELLALI MOKHTAR</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:15 - 14:30 | ID-211</div>
+                        <div class="presentation-title">Revisiting Critical Ventilation Velocity in Tunnel Fires: A CFD-Based Evaluation of Additional Geometric Influences</div>
+                        <div class="presentation-authors">Romaissa HACHANA, Chafik BENSALEM, Abdallah BENAROUS, Mohamed ROUDANE</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:30 - 14:45 | ID-165</div>
+                        <div class="presentation-title">Experimental investigation on thermal properties of the slack-wax/paraffin wax using the T-history method</div>
+                        <div class="presentation-authors">MAHMOUDI Djahida. Abdel Illah Nabil KORTI. Houcine GUELLIL. Houssem HACHEMI</div>
+                      </div>
+                      
+                      <div class="presentation-card">
+                        <div class="presentation-id">14:45 - 15:00 | ID-228</div>
+                        <div class="presentation-title">Effect of Grooved Pin-Fin Designs on Heat Transfer and Turbulent Flow Characteristics</div>
+                        <div class="presentation-authors">BENCHERIF Brahim</div>
+                      </div>
+                      <div class="presentation-card">
+                        <div class="presentation-id">15:00 - 15:15 | ID-265</div>
+                        <div class="presentation-title">Effect of Asymmetric Branch Positioning on Thermal Mixing in a Main–Branch Pipe Junction Using LES</div>
+                        <div class="presentation-authors">BENYAMINA Melouka</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coffee Break & Closing -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">15:45 - 16:15</span>
+        <h3 class="session-title">Coffee Break</h3>
+        <span class="session-type break">Networking</span>
+      </div>
+    </div>
+
+    <!-- General Closing -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">16:15 - 17:00</span>
+        <h3 class="session-title">General Closing Remarks & Certificate Distribution</h3>
+        <span class="session-type plenary">Closing Ceremony</span>
+      </div>
+    </div>
+
+    <!-- Evening Schedule -->
+    <div class="timeline-block">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <span class="time-badge">19:30</span>
+        <h3 class="session-title">Departure to Hotel & Free Time</h3>
+        <span class="session-type break">Transport</span>
+        
+        <div style="margin-top: var(--spacing-md);">
+          <span class="time-badge">20:30</span>
+          <h3 class="session-title" style="margin-top: var(--spacing-sm);">Dinner</h3>
+          <span class="session-type plenary">Social Event</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- POSTERS TAB -->
+<div id="postersTab" class="tab-content hidden">
+  <div class="guide-section">
+    <h2 class="guide-title">
+      <span class="guide-icon"><i class="fas fa-list-alt"></i></span>
+      Poster Presentations
+    </h2>
+    
+    <div style="background: var(--color-bg); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-lg);">
+      <strong><i class="fas fa-calendar-alt"></i> Date:</strong> Tuesday, 10th February 2026<br>
+      <strong><i class="fas fa-clock"></i> Time:</strong> 10:15 - 11:45 (Parallel with Coffee Break)<br>
+      <strong><i class="fas fa-chart-bar"></i> Total Posters:</strong> 10 presentations
+    </div>
+    
+    <div class="chair-info" style="margin-bottom: var(--spacing-lg);">
+      <span class="chair-label">Chair:</span> Dr MOKHEFI A.<br>
+      <span class="chair-label">Co-Chairs:</span> Dr. ROSTANE B., Dr. BENAYAD Z., Dr. NAHILA A., Dr. KHATER M. A., Dr. NEMCHI A.
+    </div>
+
+    <div class="presentation-grid">
+      <div class="presentation-card">
+        <div class="presentation-id">ID-121</div>
+        <div class="presentation-title">Numerical Simulation of the Hydrodynamic Behavior of Fluid on the Bottom of a Cylindrical Tank</div>
+        <div class="presentation-authors">BELHANAFI Abdelghani, ADJLLOUT Laouari and LEBBAL Habib</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-156</div>
+        <div class="presentation-title">Novel Inertial Shaker Methodology for Thin Steel Plate Modal Analysis: Experimental Validation and Mass-Loading Effects Compensation</div>
+        <div class="presentation-authors">BENDADA Aya , MIRI Mokhtaria , BOUTCHICHA Djilali</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-159</div>
+        <div class="presentation-title">Genetic Algorithm Code to Optimize the design of laminate Panels</div>
+        <div class="presentation-authors">KHOUAS Hanane, TIDJANI SETTET Ahmed, NOUR Abderkader , AGUIB Salah, DJEDID Toufik</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-163</div>
+        <div class="presentation-title">Comparative study of Tomato drying mixed, and mixed solar drying assisted with biomass</div>
+        <div class="presentation-authors">Ouardia AIT AMRANE, Ahmed GUESSAB , Abdelkader ARIS, Mohammed AMINE BELKHODDAM, Djelloul Yassine BENELHADJ</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-203</div>
+        <div class="presentation-title">Cutting force behavior during orthogonal cutting of AU4G</div>
+        <div class="presentation-authors">BENLAID KHANSSA Malak, AMOR Noureddine, NAOUMI Imane</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-230</div>
+        <div class="presentation-title">Influence of Biodiesel on the Performance of a Diesel Engine</div>
+        <div class="presentation-authors">SEDDAK Mohamed, LAKHDARI Assia Amina</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-234</div>
+        <div class="presentation-title">Mechanical and thermodynamic behavior of biomaterial Chromium-based alloys: Application to fixed dental prostheses</div>
+        <div class="presentation-authors">BELMILOUD Nawal, BENAISSA Hichem, RADJA Nour El Imene Bennoui, Fadila BELKHARROUBI and FERHAT Mohammed</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-251</div>
+        <div class="presentation-title">Numerical Study on the Effect of Delamination Shape on the Compressive Response of Drilled Composite Laminates</div>
+        <div class="presentation-authors">MAHARI Abderahmane, AMEUR Mohamed Fayçal , MAZOUZI Abdelhamid , ZITOUNE Redouane</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-252</div>
+        <div class="presentation-title">Evaluation and management of chemical risks associated with a water treatment unit using the SEIRICH software</div>
+        <div class="presentation-authors">BENYAMINA Melouka, TAHRI Hafsa, Nour Elhouda, CHAOUCH Aicha</div>
+      </div>
+      
+      <div class="presentation-card">
+        <div class="presentation-id">ID-255</div>
+        <div class="presentation-title">Influence of Hematocrit Level on Blood Viscosity and Hemodynamics of the Abdominal Aorta: Implications in Aneurysms</div>
+        <div class="presentation-authors">ALLAL A., AOUR B., BENCHENANE H.</div>
+      </div>
+    </div>
+    
+    <div style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); color: white; padding: var(--spacing-lg); border-radius: var(--radius-lg); margin-top: var(--spacing-xl); text-align: center;">
+      <h3 style="font-size: 1.5rem; margin-bottom: var(--spacing-sm);"><i class="fas fa-chart-bar"></i> Conference Statistics</h3>
+      <div style="display: flex; justify-content: center; gap: var(--spacing-xl); flex-wrap: wrap; margin-top: var(--spacing-md);">
+        <div>
+          <div style="font-size: 2rem; font-weight: 700;">80</div>
+          <div style="font-size: 0.9rem; opacity: 0.9;">Oral Communications</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 700;">10</div>
+          <div style="font-size: 0.9rem; opacity: 0.9;">Poster Presentations</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 700;">90</div>
+          <div style="font-size: 0.9rem; opacity: 0.9;">Total Presentations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- POSTERS TAB -->
+<div id="postersTab" class="tab-content hidden">
+  <div class="guide-section">
+    <h2 class="guide-title">
+      <span class="guide-icon"><i class="fas fa-list-alt"></i></span>
+      Poster Presentations
+    </h2>
+    
+    <div style="background: var(--color-bg); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-lg);">
+      <strong><i class="fas fa-calendar-alt"></i> Date:</strong> Tuesday, 10th February 2026<br>
+      <strong><i class="fas fa-clock"></i> Time:</strong> 10:15 - 11:45 (Parallel with Coffee Break)<br>
+      <strong><i class="fas fa-map-marker-alt"></i> Location:</strong> Main Hall / Poster Exhibition Area<br>
+      <strong><i class="fas fa-chart-bar"></i> Total Posters:</strong> 10 presentations
+    </div>
+    
+    <div class="chair-info" style="margin-bottom: var(--spacing-lg);">
+      <span class="chair-label">Chair:</span> Dr MOKHEFI A.<br>
+      <span class="chair-label">Co-Chairs:</span> Dr. ROSTANE B., Dr. BENAYAD Z., Dr. NAHILA A., Dr. KHATER M. A., Dr. NEMCHI A.
+    </div>
+
+    <div style="margin-top: var(--spacing-lg);">
+      <h3 style="font-weight: 700; margin-bottom: var(--spacing-md); color: var(--color-primary);"><i class="fas fa-list"></i> Poster Sessions (10 Posters)</h3>
+      
+      <div class="presentation-grid">
+        <div class="presentation-card">
+          <div class="presentation-id">ID-121</div>
+          <div class="presentation-title">Numerical Simulation of the Hydrodynamic Behavior of Fluid on the Bottom of a Cylindrical Tank</div>
+          <div class="presentation-authors">BELHANAFI Abdelghani, ADJLLOUT Laouari and LEBBAL Habib</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-156</div>
+          <div class="presentation-title">Novel Inertial Shaker Methodology for Thin Steel Plate Modal Analysis: Experimental Validation and Mass-Loading Effects Compensation</div>
+          <div class="presentation-authors">BENDADA Aya, MIRI Mokhtaria, BOUTCHICHA Djilali</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-159</div>
+          <div class="presentation-title">Genetic Algorithm Code to Optimize the design of laminate Panels</div>
+          <div class="presentation-authors">KHOUAS Hanane, TIDJANI SETTET Ahmed, NOUR Abderkader, AGUIB Salah, DJEDID Toufik</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-163</div>
+          <div class="presentation-title">Comparative study of Tomato drying mixed, and mixed solar drying assisted with biomass</div>
+          <div class="presentation-authors">Ouardia AIT AMRANE, Ahmed GUESSAB, Abdelkader ARIS, Mohammed AMINE BELKHODDAM, Djelloul Yassine BENELHADJ</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-203</div>
+          <div class="presentation-title">Cutting force behavior during orthogonal cutting of AU4G</div>
+          <div class="presentation-authors">BENLAID KHANSSA Malak, AMOR Noureddine, NAOUMI Imane</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-230</div>
+          <div class="presentation-title">Influence of Biodiesel on the Performance of a Diesel Engine</div>
+          <div class="presentation-authors">SEDDAK Mohamed, LAKHDARI Assia Amina</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-234</div>
+          <div class="presentation-title">Mechanical and thermodynamic behavior of biomaterial Chromium-based alloys: Application to fixed dental prostheses</div>
+          <div class="presentation-authors">BELMILOUD Nawal, BENAISSA Hichem, RADJA Nour El Imene Bennoui, Fadila BELKHARROUBI and FERHAT Mohammed</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-251</div>
+          <div class="presentation-title">Numerical Study on the Effect of Delamination Shape on the Compressive Response of Drilled Composite Laminates</div>
+          <div class="presentation-authors">MAHARI Abderahmane, AMEUR Mohamed Fayçal, MAZOUZI Abdelhamid, ZITOUNE Redouane</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-252</div>
+          <div class="presentation-title">Evaluation and management of chemical risks associated with a water treatment unit using the SEIRICH software</div>
+          <div class="presentation-authors">BENYAMINA Melouka, TAHRI Hafsa, Nour Elhouda, CHAOUCH Aicha</div>
+        </div>
+        
+        <div class="presentation-card">
+          <div class="presentation-id">ID-255</div>
+          <div class="presentation-title">Influence of Hematocrit Level on Blood Viscosity and Hemodynamics of the Abdominal Aorta: Implications in Aneurysms</div>
+          <div class="presentation-authors">ALLAL A., AOUR B., BENCHENANE H.</div>
+        </div>
+      </div>
+      
+      <div style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); color: white; padding: var(--spacing-lg); border-radius: var(--radius-lg); margin-top: var(--spacing-xl); text-align: center;">
+        <h3 style="font-size: 1.5rem; margin-bottom: var(--spacing-sm);"><i class="fas fa-chart-bar"></i> SIGMA26 Conference Statistics</h3>
+        <div style="display: flex; justify-content: center; gap: var(--spacing-xl); flex-wrap: wrap; margin-top: var(--spacing-md);">
+          <div>
+            <div style="font-size: 2.5rem; font-weight: 700;">80</div>
+            <div style="font-size: 0.95rem; opacity: 0.95;">Oral Communications</div>
+          </div>
+          <div style="width: 2px; background: rgba(255,255,255,0.3);"></div>
+          <div>
+            <div style="font-size: 2.5rem; font-weight: 700;">10</div>
+            <div style="font-size: 0.95rem; opacity: 0.95;">Poster Presentations</div>
+          </div>
+          <div style="width: 2px; background: rgba(255,255,255,0.3);"></div>
+          <div>
+            <div style="font-size: 2.5rem; font-weight: 700;">90</div>
+            <div style="font-size: 0.95rem; opacity: 0.95;">Total Presentations</div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="background: #455dff; padding: var(--spacing-lg); border-radius: var(--radius-md); margin-top: var(--spacing-lg); border-left: 4px solid #455dff;">
+        <h4 style="font-weight: 700; margin-bottom: var(--spacing-sm); color: white;">
+          <i class="fas fa-info-circle"></i> Poster Session Information
+        </h4>
+        <p style="color: white; margin-bottom: var(--spacing-xs);">
+          <strong><i class="fas fa-clock"></i> When:</strong> Tuesday, February 10th, 2026 | 10:15 - 11:45
+        </p>
+        <p style="color: white; margin-bottom: var(--spacing-xs);">
+          <strong><i class="fas fa-map-marker-alt"></i> Where:</strong> Main Hall / Poster Exhibition Area
+        </p>
+        <p style="color: white; margin-bottom: var(--spacing-xs);">
+          <strong>Format:</strong> All posters will be on display throughout the session. Authors are requested to stand by their posters for questions and discussions.
+        </p>
+        <p style="color: white; margin-top: var(--spacing-sm); font-style: italic;">
+          <i class="fas fa-note-sticky"></i> Note: This session runs parallel to the Coffee Break, providing an excellent networking opportunity.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+  <script>
+    // Tab switching
+    function showTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+      });
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Show selected tab
+      const tabMap = {
+        'guide': 'guideTab',
+        'day1': 'day1Tab',
+        'day2': 'day2Tab',
+        'posters': 'postersTab'
+      };
+      
+      document.getElementById(tabMap[tabName]).classList.remove('hidden');
+      
+      // Add active class to clicked button
+      event.target.classList.add('active');
+    }
+    
+    // Accordion functionality
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      const content = item.querySelector('.accordion-content');
+      const isActive = item.classList.contains('active');
+      
+      // Close all accordions in the same section
+      const section = header.closest('.timeline-content') || header.closest('.parallel-session') || header.closest('.guide-section');
+      if (section) {
+        section.querySelectorAll('.accordion-item').forEach(accordionItem => {
+          accordionItem.classList.remove('active');
+          accordionItem.querySelector('.accordion-content').style.maxHeight = '0px';
+        });
+      }
+      
+      // Toggle current accordion
+      if (!isActive) {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    }
+    
+    // Initialize
+    window.onload = function() {
+      console.log('SIGMA26 Interactive Action Plan loaded');
+      
+      // You can replace logo URLs here
+      // document.getElementById('sigmaLogo').src = 'YOUR_SIGMA_LOGO_URL';
+      // document.getElementById('enpoLogo').src = 'YOUR_ENPO_LOGO_URL';
+    };
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3 class="footer-title">SIGMA26</h3>
+        <p class="footer-description">Interactive seminar bringing together researchers and professionals in computational sciences and thermodynamics.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">Contact</h3>
+        <p class="footer-text">
+          <i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:sigma26@enp-oran.dz">sigma26@enp-oran.dz</a>
+        </p>
+        <p class="footer-text">
+          <i class="fas fa-globe"></i> <strong>Website:</strong> <a href="https://sigma25.enp-oran.dz/" target="_blank">sigma25.enp-oran.dz</a>
+        </p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 SIGMA26. All rights reserved.</p>
+      <p class="footer-credit">Designed and developed for scientific excellence.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
